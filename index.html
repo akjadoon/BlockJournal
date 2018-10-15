@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="node_modules/web3/dist/web3.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Register New User</h1>
+        <h2 id="instructor"></h2>
+        <label for="name" class="col-lg-2 control-label">Public Key</label>
+        <input id="name" type="text">
+        <label for="name" class="col-lg-2 control-label">Email</label>
+        <input id="age" type="text">
+        <button id="button">Register</button>
+        <button id="button-2">Retrieve Info</button> 
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script>
+        if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:7545"));
+        }
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+        var journalContract = web3.eth.contract([
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_value",
+          "type": "uint256"
+        }
+      ],
+      "name": "Transfer",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "email",
+          "type": "bytes32"
+        }
+      ],
+      "name": "Register",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "receiver",
+          "type": "address"
+        },
+        {
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "sendCoin",
+      "outputs": [
+        {
+          "name": "sufficient",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "reciever",
+          "type": "address"
+        },
+        {
+          "name": "email",
+          "type": "bytes32"
+        }
+      ],
+      "name": "regNewUser",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "name": "getBalanceInEth",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "name": "getBalance",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]);
+    var journal = journalContract.at('0x1219D3a19D6db8394cd7dDC8dF3B29e525C54A09')   
+    console.log(journal)
+    </script>
+</body>
+</html>
